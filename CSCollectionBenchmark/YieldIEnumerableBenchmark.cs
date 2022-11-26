@@ -6,6 +6,7 @@ namespace CSCollectionBenchmark
     public class YieldIEnumerableBenchmark
     {
         readonly int total = 1_000;
+        readonly int totalLarge = 1_000_000;
 
         [Benchmark]
         public void PrintFruit()
@@ -24,6 +25,38 @@ namespace CSCollectionBenchmark
             foreach (var fruit in GetFruitYield(total))
             {
                 Console.WriteLine(fruit);
+            }
+        }
+
+        [Benchmark]
+        public void PrintFruitLarge()
+        {
+            int i = 0;
+            Console.WriteLine("Using GetFruit");
+            foreach (var fruit in GetFruit(totalLarge))
+            {
+                if (i > 1_000)
+                {
+                    break;
+                }
+                Console.WriteLine(fruit);
+                i++;
+            }
+        }
+
+        [Benchmark]
+        public void PrintFruitYieldLarge()
+        {
+            int i = 0;
+            Console.WriteLine("Using GetFruitYield");
+            foreach (var fruit in GetFruitYield(totalLarge))
+            {
+                if (i > 1_000)
+                {
+                    break;
+                }
+                Console.WriteLine(fruit);
+                i++;
             }
         }
 
